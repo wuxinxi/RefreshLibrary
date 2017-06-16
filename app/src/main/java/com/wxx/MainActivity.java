@@ -5,18 +5,12 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wxx.refreshlibrary.baseadapter.BaseAdapter;
 import com.wxx.refreshlibrary.iterfaces.OnItemClickListener;
 import com.wxx.refreshlibrary.iterfaces.OnLoadMoreListener;
-import com.wxx.refreshlibrary.iterfaces.OnNetWorkErrorListener;
-import com.wxx.refreshlibrary.recyclerView.ProgressStyle;
 import com.wxx.refreshlibrary.recyclerView.TRecyclerView;
 import com.wxx.refreshlibrary.recyclerView.TRecyclerViewAdapter;
 import com.wxx.refreshlibrary.viewholder.BaseViewHolder;
