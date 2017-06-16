@@ -23,6 +23,9 @@ dependencies {
 3. 网络错误加载失败点击Footer重新请求数据；
 4. 可以动态为FooterView赋予不同状态（加载中、加载失败、滑到最底等）；
 ```
+## 预览
+<a href="http://www.niupic.com/photo/750263.html"><img src="http://i.niupic.com/images/2017/06/16/S6egPg.gif" height="400" ></a>
+
 ## 3.使用方式 </br>
 ```
 <android.support.v4.widget.SwipeRefreshLayout
