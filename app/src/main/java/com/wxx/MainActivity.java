@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements OnRefreshListener
 
                     }
                 }).start();
-                System.out.println("上拉加载更多………………………………");
 
             }
         });
