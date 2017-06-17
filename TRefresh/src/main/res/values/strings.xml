@@ -22,4 +22,6 @@
     <string name="text_day_ago">天前</string>
     <string name="text_month_ago">月前</string>
     <string name="text_year_ago">年前</string>
+
+    <string name="data_empty">神马都没有……</string>
 </resources>

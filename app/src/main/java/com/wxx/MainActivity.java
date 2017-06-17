@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.wxx.refreshlibrary.baseadapter.BaseAdapter;
 import com.wxx.refreshlibrary.iterfaces.OnItemClickListener;
 import com.wxx.refreshlibrary.iterfaces.OnLoadMoreListener;
+import com.wxx.refreshlibrary.iterfaces.OnNetWorkErrorListener;
 import com.wxx.refreshlibrary.recyclerView.TRecyclerView;
 import com.wxx.refreshlibrary.recyclerView.TRecyclerViewAdapter;
 import com.wxx.refreshlibrary.viewholder.BaseViewHolder;
@@ -18,7 +19,7 @@ import com.wxx.refreshlibrary.viewholder.BaseViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnRefreshListener, OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements OnRefreshListener, OnItemClickListener,OnNetWorkErrorListener {
 
     TRecyclerView recyclerView;
     TRecyclerViewAdapter tAdapter;
@@ -69,9 +70,12 @@ public class MainActivity extends AppCompatActivity implements OnRefreshListener
                     }
                 }).start();
 
+
             }
         });
 
+
+        recyclerView.setOnNetWorkErrorListener(this);
 
     }
 
@@ -108,6 +112,11 @@ public class MainActivity extends AppCompatActivity implements OnRefreshListener
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "position:" + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void reload() {
+
     }
 
 

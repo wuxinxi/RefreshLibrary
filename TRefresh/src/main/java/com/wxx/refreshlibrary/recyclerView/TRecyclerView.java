@@ -127,13 +127,16 @@ public class TRecyclerView extends RecyclerView {
 
     }
 
+    private static final String TAG = "TRecyclerView";
+
     private class DataObserver extends RecyclerView.AdapterDataObserver {
         @Override
         public void onChanged() {
             Adapter<?> adapter = getAdapter();
 
             if (adapter != null && mEmptyView != null) {
-                if (adapter.getItemCount() == 0) {
+                //因为多了footer所以本来有一个item
+                if (adapter.getItemCount() == 1) {
                     mEmptyView.setVisibility(View.VISIBLE);
                     TRecyclerView.this.setVisibility(View.GONE);
                 } else {
@@ -199,11 +202,6 @@ public class TRecyclerView extends RecyclerView {
         this.mEmptyView = emptyView;
         mDataObserver.onChanged();
     }
-
-    public void setRefreshing(boolean refreshing) {
-        mRefreshing = refreshing;
-    }
-
     /**
      * @param pageSize 一页加载的数量
      */
