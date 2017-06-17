@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.wxx.refreshlibrary.baseadapter.BaseAdapter;
 import com.wxx.refreshlibrary.iterfaces.OnLoadMoreListener;
@@ -23,6 +24,8 @@ public class Main2Activity extends AppCompatActivity implements OnRefreshListene
     MyAdapter myAdapter;
     List<String> datas = new ArrayList<>();
     View emptyView;
+    View netErrorView;
+    Button button;
     private static final String TAG = "Main2Activity";
 
     @Override
@@ -31,19 +34,22 @@ public class Main2Activity extends AppCompatActivity implements OnRefreshListene
         setContentView(R.layout.activity_main2);
         pullRefreshAndLoadMoreView = (PullRefreshAndLoadMoreView) findViewById(R.id.view);
         emptyView = findViewById(R.id.emptyView);
+        netErrorView = findViewById(R.id.netError);
+        button= (Button) findViewById(R.id.pager_error_loadingAgain);
         pullRefreshAndLoadMoreView.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_orange_dark);
         pullRefreshAndLoadMoreView.setFooterViewHint("拼命加载中", "已经全部为你呈现了", "网络不给力啊，点击再试一次吧");
         pullRefreshAndLoadMoreView.setLayoutManager(new LinearLayoutManager(this));
+        
         myAdapter = new MyAdapter(R.layout.view_itre, datas);
         tAdapter = new TRecyclerViewAdapter(myAdapter);
         pullRefreshAndLoadMoreView.setAdapter(tAdapter);
         pullRefreshAndLoadMoreView.setOnLoadMoreListener(this);
         pullRefreshAndLoadMoreView.setOnRefreshListener(this);
 
-        Log.e(TAG, "onCreate: MyAdapter"+myAdapter.getItemCount());
-        Log.e(TAG, "onCreate: TRecyclerViewAdapter"+tAdapter.getItemCount());
-        pullRefreshAndLoadMoreView.setEmpty(emptyView);
-        emptyView.setOnClickListener(new View.OnClickListener() {
+        Log.e(TAG, "onCreate: MyAdapter" + myAdapter.getItemCount());
+        Log.e(TAG, "onCreate: TRecyclerViewAdapter" + tAdapter.getItemCount());
+        pullRefreshAndLoadMoreView.setEmpty(netErrorView);
+        button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

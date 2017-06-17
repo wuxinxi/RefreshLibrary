@@ -68,9 +68,7 @@ public class PullRefreshAndLoadMoreView extends LinearLayout implements SwipeRef
     public void setColorSchemeResources(@ColorRes int... colorResIds) {
         if (colorResIds.length > 3)
             throw new IllegalArgumentException("The length must be within 3 ");
-        for (int i = 0; i < colorResIds.length; i++) {
-            colorRes[i] = colorResIds[i];
-        }
+        refreshLayout.setColorSchemeResources(colorResIds);
     }
 
     /**
