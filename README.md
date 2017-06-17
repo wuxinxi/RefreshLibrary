@@ -10,10 +10,11 @@ Add it in your root build.gradle at the end of repositories:
 		}
 	}
 ```
-Step 2. Add the dependency
+Step 2. Add the dependency</br>
+最新版：1.0.2
 ```
 dependencies {
-	        compile 'com.github.wuxinxi:RefreshLibrary:1.0.1'
+	        compile 'com.github.wuxinxi:RefreshLibrary:1.0.x'
 	}
 ```
 ## 2.功能
@@ -28,16 +29,30 @@ dependencies {
 
 ## 3.使用方式 </br>
 ```
-<android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.wxx.Main2Activity">
 
-        <com.wxx.refreshlibrary.recyclerView.TRecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    <com.wxx.refreshlibrary.recyclerView.PullRefreshAndLoadMoreView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.wxx.refreshlibrary.recyclerView.PullRefreshAndLoadMoreView>
+
+    <include
+        android:id="@+id/emptyView"
+        android:visibility="gone"
+        layout="@layout/layout_page_no_data"></include>
+
+    <include
+        android:id="@+id/netError"
+        android:visibility="gone"
+        layout="@layout/layout_pager_error"></include>
+</FrameLayout>
+
     
 ```
 Adapter继承BaseAdapter</br>
@@ -45,7 +60,7 @@ Adapter继承BaseAdapter</br>
 ```
  MyAdapter myAdapter = new MyAdapter(R.layout.view_itre,getData());
  TRecyclerViewAdapter tAdapter = new TRecyclerViewAdapter(myAdapter);
- recyclerView.setAdapter(tAdapter);
+ pullRefreshAndLoadMoreView.setAdapter(tAdapter);
  
 ```
 ### 2.上拉刷新（实现接口）</br>
@@ -58,19 +73,19 @@ OnItemClickListener、OnItemLongClickListener、LScrollListener
 ```
 ### 4.设置foot文字提示、文字颜色
 ```
-recyclerView.setFooterViewHint(String loading, String noMore, String noNetWork )
-recyclerView.setFooterViewColor(int indicatorColor, int hintColor, int backgroundColor)
+pullRefreshAndLoadMoreView.setFooterViewHint(String loading, String noMore, String noNetWork )
+pullRefreshAndLoadMoreView.setFooterViewColor(int indicatorColor, int hintColor, int backgroundColor)
 
 ```
 ### 5.加载完处理
 ```
 tAdapter.addAll(list);
-recyclerView.refreshComplete(REQUEST_COUNT);// REQUEST_COUNT为每页加载数量
+pullRefreshAndLoadMoreView.refreshComplete(REQUEST_COUNT);// REQUEST_COUNT为每页加载数量
 
 ```
 ### 6.网络错误处理
 ```
-recyclerView.setOnNetWorkErrorListener(new OnNetWorkErrorListener() {
+pullRefreshAndLoadMoreView.setOnNetWorkErrorListener(new OnNetWorkErrorListener() {
                 @Override
                 public void reload() {
                     requestData();
