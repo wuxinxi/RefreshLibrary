@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.wxx.refreshlibrary.R;
 import com.wxx.refreshlibrary.iterfaces.OnLoadMoreListener;
+import com.wxx.refreshlibrary.iterfaces.OnNetWorkErrorListener;
 import com.wxx.refreshlibrary.iterfaces.OnRefreshListener;
 
 /**
@@ -22,6 +23,8 @@ public class PullRefreshAndLoadMoreView extends LinearLayout implements SwipeRef
 
     private SwipeRefreshLayout refreshLayout;
     private TRecyclerView recyclerView;
+    private View emptyView;
+    private View netErrorView;
 
     private int[] colorRes = new int[]{android.R.color.holo_blue_bright,
             android.R.color.holo_red_light,
@@ -45,6 +48,8 @@ public class PullRefreshAndLoadMoreView extends LinearLayout implements SwipeRef
         View view = LayoutInflater.from(context).inflate(R.layout.layout_refresh_load_view, this, true);
         recyclerView = (TRecyclerView) view.findViewById(R.id.recyclerView);
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+        emptyView = view.findViewById(R.id.emptyView);
+        netErrorView = view.findViewById(R.id.netError);
         refreshLayout.setOnRefreshListener(this);
         recyclerView.setOnLoadMoreListener(this);
         refreshLayout.setColorSchemeResources(colorRes);
@@ -125,6 +130,7 @@ public class PullRefreshAndLoadMoreView extends LinearLayout implements SwipeRef
             recyclerView.setNoMore(noMore);
     }
 
+
     /**
      * 空数据
      *
@@ -135,6 +141,16 @@ public class PullRefreshAndLoadMoreView extends LinearLayout implements SwipeRef
             throw new IllegalArgumentException("Empty view must no null");
         if (recyclerView != null)
             recyclerView.setEmptyView(emptyView);
+    }
+
+    public void setEmpty() {
+        if (recyclerView != null)
+            recyclerView.setEmptyView(emptyView);
+    }
+
+    public void setNetError() {
+        if (recyclerView != null)
+            recyclerView.setEmptyView(netErrorView);
     }
 
 
@@ -160,5 +176,10 @@ public class PullRefreshAndLoadMoreView extends LinearLayout implements SwipeRef
     public void onLoadMore() {
         if (onLoadMoreListener != null)
             onLoadMoreListener.onLoadMore();
+    }
+
+    public void setOnNetWorkErrorListener(OnNetWorkErrorListener listener) {
+        if (recyclerView != null)
+            recyclerView.setOnNetWorkErrorListener(listener);
     }
 }

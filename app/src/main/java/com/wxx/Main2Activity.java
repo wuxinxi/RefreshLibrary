@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.wxx.refreshlibrary.baseadapter.BaseAdapter;
 import com.wxx.refreshlibrary.iterfaces.OnLoadMoreListener;
+import com.wxx.refreshlibrary.iterfaces.OnNetWorkErrorListener;
 import com.wxx.refreshlibrary.iterfaces.OnRefreshListener;
 import com.wxx.refreshlibrary.recyclerView.PullRefreshAndLoadMoreView;
 import com.wxx.refreshlibrary.recyclerView.TRecyclerViewAdapter;
@@ -23,8 +24,7 @@ public class Main2Activity extends AppCompatActivity implements OnRefreshListene
     TRecyclerViewAdapter tAdapter;
     MyAdapter myAdapter;
     List<String> datas = new ArrayList<>();
-    View emptyView;
-    View netErrorView;
+
     Button button;
     private static final String TAG = "Main2Activity";
 
@@ -33,8 +33,6 @@ public class Main2Activity extends AppCompatActivity implements OnRefreshListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         pullRefreshAndLoadMoreView = (PullRefreshAndLoadMoreView) findViewById(R.id.view);
-        emptyView = findViewById(R.id.emptyView);
-        netErrorView = findViewById(R.id.netError);
         button= (Button) findViewById(R.id.pager_error_loadingAgain);
         pullRefreshAndLoadMoreView.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_orange_dark);
         pullRefreshAndLoadMoreView.setFooterViewHint("拼命加载中", "已经全部为你呈现了", "网络不给力啊，点击再试一次吧");
@@ -48,7 +46,7 @@ public class Main2Activity extends AppCompatActivity implements OnRefreshListene
 
         Log.e(TAG, "onCreate: MyAdapter" + myAdapter.getItemCount());
         Log.e(TAG, "onCreate: TRecyclerViewAdapter" + tAdapter.getItemCount());
-        pullRefreshAndLoadMoreView.setEmpty(netErrorView);
+        pullRefreshAndLoadMoreView.setNetError();
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -74,10 +72,15 @@ public class Main2Activity extends AppCompatActivity implements OnRefreshListene
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
-                        myAdapter.addMoreListData(more());
-                        pullRefreshAndLoadMoreView.refreshComplete(1);
-                        tAdapter.notifyDataSetChanged();
+                        pullRefreshAndLoadMoreView.setOnNetWorkErrorListener(new OnNetWorkErrorListener() {
+                            @Override
+                            public void reload() {
+                                myAdapter.addMoreListData(more());
+                                pullRefreshAndLoadMoreView.refreshComplete(1);
+                                tAdapter.notifyDataSetChanged();
+                            }
+                        });
+//
                     }
                 });
 

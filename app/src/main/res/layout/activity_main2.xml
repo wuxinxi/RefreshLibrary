@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.wxx.refreshlibrary.recyclerView.PullRefreshAndLoadMoreView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    tools:context="com.wxx.Main2Activity">
-
-    <com.wxx.refreshlibrary.recyclerView.PullRefreshAndLoadMoreView
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.wxx.refreshlibrary.recyclerView.PullRefreshAndLoadMoreView>
+    android:layout_height="match_parent" />
 
 
-    <include
-        android:id="@+id/emptyView"
-        android:visibility="gone"
-        layout="@layout/layout_page_no_data"></include>
-
-    <include
-        android:id="@+id/netError"
-        android:visibility="gone"
-        layout="@layout/layout_pager_error"></include>
-</FrameLayout>
